@@ -4,8 +4,14 @@ import { notification as AntdNotification } from 'antd';
 // import { usuarioService } from '../api/userApi';
 // import { storage } from '../localStorage';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-const Note: React.FC = () => {
+type NoteProps = {
+    readOnly: boolean
+}
+
+const Note: React.FC <NoteProps> = ({readOnly}) => {
+    const [activeButtons, setActiveButtons] = useState<boolean>(readOnly);
     const navigate = useNavigate();
 
     const demoProps = {
@@ -28,6 +34,10 @@ const Note: React.FC = () => {
         }
     };
 
+    const goBack = async():Promise<void>=>{
+        navigate("/notes");
+    };
+
     return (
         <>
             <form onSubmit={handleSubmit} className="text-center">
@@ -37,16 +47,20 @@ const Note: React.FC = () => {
                         radius="lg"
                         withAsterisk
                         placeholder="Título"
+                        disabled={readOnly}
                     />
                     <Textarea className="note-body"
                         size="xl"
                         radius="lg"
                         placeholder="Escribe aquí..."
+                        disabled={readOnly}
                     />
-                    <div className='buttons'>
-                        <Button variant="filled" color="violet" size="lg" radius="lg">Volver</Button>
-                        <Button type="submit" variant="filled" color="pink" size="lg" radius="lg">Guardar</Button>
-                    </div>
+                    {!readOnly && (
+                        <div className='buttons'>
+                            <Button type="button" variant="filled" color="violet" size="lg" radius="lg" disabled={!activeButtons} onClick={goBack}>Volver</Button>
+                            <Button type="submit" variant="filled" color="pink" size="lg" radius="lg" disabled={!activeButtons}>Guardar</Button>
+                        </div>
+                    )}
                 </Container>
             </form>
         </>
