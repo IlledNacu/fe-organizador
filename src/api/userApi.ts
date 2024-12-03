@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../types/User';
 
-const BASE_URL = 'http://localhost:3306/api';
+const BASE_URL = 'http://localhost:3000/api';
 
 class UsuarioService {
     async login(email: string, password: string): Promise<User> {

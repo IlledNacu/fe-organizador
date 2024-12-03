@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-//import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import Notes from './pages/Notes';
+import LoginPage from './pages/LoginPage.tsx';
+import HomePage from './pages/HomePage.tsx';
+import NotesPage from './pages/NotesPage.tsx';
 //import RegisterPage from './pages/RegisterPage';
 
 const AppRoutes = () => (
     
     <Router>
         <Routes>
-            {/* <Route path="/" element={<HomePage />} /> */}
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/notes" element={<Notes />} />
+            <Route path="/notes" element={<NotesPage />} />
             {/* <Route path="/register" element={<RegisterPage />} /> */}
         </Routes>
     </Router>
