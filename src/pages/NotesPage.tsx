@@ -12,7 +12,8 @@ const NotesPage: React.FC = () => {
                 <Grid.Col span={4}><Note readOnly={true}></Note></Grid.Col>
             </Grid>
         </Center> */}
-        <Note readOnly={false} ></Note>
+        <Note></Note>
+        <Note></Note>
         </>
     );
 };

@@ -13,6 +13,14 @@
     height: 50vh;
 }
 
+.readOnly{
+    cursor: pointer;
+}
+
+.visible{
+
+}
+
 .buttons{
     width: 100%;
     display: flex;
