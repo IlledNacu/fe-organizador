@@ -5,14 +5,19 @@ import { notification as AntdNotification } from 'antd';
 // import { storage } from '../localStorage';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Note as NoteType } from '../types/Note';
+import { useOnInit } from '../customHooks';
 
 type NoteProps = {
     readOnly: boolean
 }
 
 const Note: React.FC <NoteProps> = ({readOnly}) => {
-    const [activeButtons, setActiveButtons] = useState<boolean>(readOnly);
+    const [activeButtons, setActiveButtons] = useState<boolean>(!readOnly);
+    const [title, setTitle] = useState<string>('')
+    const [body, setBody] = useState<string>('')
     const navigate = useNavigate();
+    const notesMock : NoteType[] = [{ id: 0, title: 'Compras wm', body: 'pan, queso, medialunas', creatorId: 0 }]
 
     const demoProps = {
         bg: 'var(--mantine-color-red-light)',
@@ -38,6 +43,11 @@ const Note: React.FC <NoteProps> = ({readOnly}) => {
         navigate("/notes");
     };
 
+    useOnInit(() => {
+        setTitle(notesMock[0].title);
+        setBody(notesMock[0].body);
+    });
+
     return (
         <>
             <form onSubmit={handleSubmit} className="text-center">
@@ -48,12 +58,16 @@ const Note: React.FC <NoteProps> = ({readOnly}) => {
                         withAsterisk
                         placeholder="Título"
                         disabled={readOnly}
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
                     />
                     <Textarea className="note-body"
                         size="xl"
                         radius="lg"
                         placeholder="Escribe aquí..."
                         disabled={readOnly}
+                        value={body}
+                        onChange={e => setBody(e.target.value)}
                     />
                     {!readOnly && (
                         <div className='buttons'>
