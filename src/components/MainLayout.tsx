@@ -8,7 +8,7 @@ const MainLayout: React.FC = () => {
         <>
         <Flex
         style={{ height: '100vh', width: '100vw' }}
-        // bg='white'
+        bg='#f1e2e7'
         direction="row"
         wrap="nowrap"
         >
