@@ -2,24 +2,32 @@ import { User } from "./types/User"
 
 class Storage {
 
-    usuarioLogueadoKey : string = 'usuarioLogueado'
+    private readonly loggedUserKey : string = 'loggedUser';
 
     logIn = (user : User) : void => {
-        localStorage.setItem(this.usuarioLogueadoKey, JSON.stringify(user))
+        try {
+            localStorage.setItem(this.loggedUserKey, JSON.stringify(user));
+        } catch (error) {
+            console.error("Error al guardar en localStorage:", error);
+        }
     }
 
     isUserLoggedIn = () : boolean => {
-        const user = localStorage.getItem(this.usuarioLogueadoKey)
-        return user != undefined && user != null
+        return !!this.getLoggedUser();
     }
 
     logOut = () : void => {
-        localStorage.removeItem(this.usuarioLogueadoKey)
+        localStorage.removeItem(this.loggedUserKey)
     }
 
     getLoggedUser(): User | null {
-        const user = localStorage.getItem(this.usuarioLogueadoKey)
-        return user ? JSON.parse(user) : null
+        try {
+            const userString = localStorage.getItem(this.loggedUserKey);
+            return userString ? JSON.parse(userString) : null;
+        } catch (error) {
+            console.error("Error al leer o parsear desde localStorage:", error);
+            return null;
+        }
     }
 
 }

@@ -3,7 +3,7 @@ import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icon
 import { Button } from '@mantine/core';
 import React, { useState } from 'react';
 import { notification as AntdNotification } from 'antd';
-import { usuarioService } from '../api/userApi';
+import { userService } from '../api/userApi';
 import { storage } from '../localStorage';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
         }
 
         try{
-          const user = await usuarioService.login(email, password);
+          const user = await userService.login(email, password);
           storage.logIn(user);
           navigate('/notes');
         }catch {
