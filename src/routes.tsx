@@ -2,16 +2,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage.tsx';
 import HomePage from './pages/HomePage.tsx';
 import NotesPage from './pages/NotesPage.tsx';
-//import RegisterPage from './pages/RegisterPage';
+import ProtectedRoute from './components/ProtectedRoutes.tsx';
+import MainLayout from './components/MainLayout.tsx';
 
 const AppRoutes = () => (
     
     <Router>
         <Routes>
-            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/notes" element={<NotesPage />} />
-            {/* <Route path="/register" element={<RegisterPage />} /> */}
+            
+            {/* RUTAS PROTEGIDAS */}
+            <Route element={<MainLayout />}>
+                <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+                <Route path="/notes" element={<ProtectedRoute><NotesPage /></ProtectedRoute>} />
+            </Route>
         </Routes>
     </Router>
 );

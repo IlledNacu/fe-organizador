@@ -7,9 +7,10 @@ const pages = [
   { icon: IconGauge, label: 'Home', description: 'Item with description', path: '/', },
   { icon: IconFingerprint, label: 'Perfil', path: '/profile', },
   { icon: IconActivity, label: 'Notas', path: '/notes', },
+  { icon: IconActivity, label: 'Salir', path: '/logout', },
 ];
 
-const TopBar: React.FC = () => {
+const SideBar: React.FC = () => {
   const [active, setActive] = useState(0);
 
   const items = pages.map((item, index) => (
@@ -28,9 +29,9 @@ const TopBar: React.FC = () => {
   return (
   storage.isUserLoggedIn()
   ?
-  <Box w={220}>{items}</Box>
+  <Box w={220} h={"100%"}>{items}</Box>
   : null
   )
 }
 
-export default TopBar;
+export default SideBar;

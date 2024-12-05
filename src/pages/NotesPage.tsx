@@ -1,4 +1,4 @@
-import { Center, Grid } from "@mantine/core";
+import { Grid } from "@mantine/core";
 import Note from "../components/Note";
 import { storage } from '../localStorage';
 import { noteService } from "../api/noteApi";
@@ -21,13 +21,11 @@ const NotesPage: React.FC = () => {
     });
 
     return(<>
-        <Center w="100vw">
             <Grid grow>
                 {myNotes.map((note) => (
                     <Grid.Col span={4} key={note.id}><Note note={note}></Note></Grid.Col>
                 ))}
             </Grid>
-        </Center>
         </>
     );
 };

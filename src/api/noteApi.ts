@@ -9,6 +9,10 @@ class NoteService {
         const notes = response.data.map(note=>({...note, creatorId: note.creator.id}));
         return notes;
     }
+
+    async editNote(id: number, title: string, body: string): Promise<void>{
+        await axios.put<void>(`${BASE_URL}/notes/${id}`, {title, body});
+    }
 }
 
 export const noteService = new NoteService();

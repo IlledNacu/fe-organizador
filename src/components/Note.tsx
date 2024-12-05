@@ -1,10 +1,9 @@
 import { Textarea, TextInput, Container, Button } from '@mantine/core';
 import '../styles/note.css';
 import { notification as AntdNotification } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Note as NoteType } from '../types/Note';
-//import { useOnInit } from '../hooks/useOnInit';
+import { noteService } from '../api/noteApi';
 
 interface NoteProps {
     note: NoteType;
@@ -14,8 +13,6 @@ const Note: React.FC<NoteProps> = ({note}) => {
     const [readOnly, setReadOnly] = useState<boolean>(true);
     const [title, setTitle] = useState<string>(note.title);
     const [body, setBody] = useState<string>(note.body);
-    //const {creator} = note.creator;
-    const navigate = useNavigate();
 
     const demoProps = {
         bg: 'var(--mantine-color-red-light)',
@@ -32,8 +29,12 @@ const Note: React.FC<NoteProps> = ({note}) => {
         e.preventDefault();
 
         try {
-            //Guardar la nota
-            navigate('/notes');
+            noteService.editNote(note.id, title, body);
+            // AntdNotification.success({
+            //     message: 'Nota actualizada',
+            //     description: 'La nota se actualizó correctamente.',
+            // });
+            await recharge();
         } catch {
             AntdNotification.error({
                 message: 'No se pudo conectar a la base de datos',
@@ -42,14 +43,15 @@ const Note: React.FC<NoteProps> = ({note}) => {
         }
     };
 
-    // const goBack = () => {
-    //     navigate("/notes");
-    // };
+    const recharge = async () =>{
+        window.location.href = "/notes";
+    }
 
-    // useOnInit(() => {
-    //     setTitle(title);
-    //     setBody(body);
-    // });
+    const cancel = () => {
+        setTitle(note.title);
+        setBody(note.body);
+        setReadOnly(true);
+    };
 
     return (
         <>
@@ -80,7 +82,7 @@ const Note: React.FC<NoteProps> = ({note}) => {
                             onChange={e => setBody(e.target.value)}
                         />
                         <div className='buttons'>
-                            <Button type="button" variant="filled" color="violet" size="lg" radius="lg" onClick={changeVisibility}>Volver</Button>
+                            <Button type="button" variant="filled" color="violet" size="lg" radius="lg" onClick={cancel}>Cancelar</Button>
                             <Button type="submit" variant="filled" color="pink" size="lg" radius="lg">Guardar</Button>
                         </div>
                     </Container>
