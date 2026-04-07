@@ -1,10 +1,13 @@
-import TopBar from "../components/TopBar";
+import { Container } from "@mantine/core";
+import { Subgrid } from "../components/Subgrid";
 
 const HomePage: React.FC = () => {
     return(
-    <div>
-        <TopBar></TopBar>
-    </div>
+        <>
+        <Container fluid my="md" px={50}>
+            <Subgrid></Subgrid>
+        </Container>
+        </>
     );
 };
 
