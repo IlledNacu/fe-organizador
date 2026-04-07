@@ -1,43 +1,95 @@
-import { SimpleGrid, Stack, Paper, Text, Grid, Skeleton } from '@mantine/core';
+import { SimpleGrid, Stack, Paper, Text, Grid, Skeleton, UnstyledButton } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
-const BASE_HEIGHT = 640;
+const DASHBOARD_DATA = [
+    { id: 1, titulo: 'Principal', tipo: 'grande', color: '#D6E9FA', link: '/play' },
+    { id: 2, titulo: 'Tareas', tipo: 'sub', color: '#D1BCE3', link: '/tasks' },
+    { id: 3, titulo: 'Agenda', tipo: 'sub', color: '#E36414', link: '/agenda' },
+    { id: 4, titulo: 'Cuidado', tipo: 'sub', color: '#D6E9FA', link: '/cuidado' },
+    { id: 5, titulo: 'Pomodoro', tipo: 'sub', color: '#D1BCE3', link: '/pomodoro' },
+    { id: 6, titulo: 'Economía', tipo: 'sub', color: '#E36414', link: '/economia' },
+    { id: 7, titulo: 'Notas', tipo: 'grande', color: '#E36414', link: '/notes' }
+];
 
 export function Subgrid() {
-  return (
-      <SimpleGrid cols={{ base: 1, xs: 4 }}>
-        
-        <CardContenido height={BASE_HEIGHT} color="blue" texto="Principal" />
+    const navigate = useNavigate();
 
-        <Stack>
-          <CardContenido height={BASE_HEIGHT / 2 - 8} color="teal" texto="Sub 1" />
-          <CardContenido height={BASE_HEIGHT / 2 - 8} color="teal" texto="Sub 2" />
-        </Stack>
+    const renderCard = (item: any, height: number) => (
+        <UnstyledButton 
+        onClick={() => navigate(item.link)} 
+        style={{ width: '100%' }}
+        >
+        <Paper 
+            h={height} 
+            p="xl" 
+            radius="lg" 
+            style={{ backgroundColor: item.color, transition: 'transform 0.2s ease' }}
+        >
+            <Text fw={700} size="xl">{item.titulo}</Text>
+        </Paper>
+        </UnstyledButton>
+    );
+    
+    // const BASE_HEIGHT = 640;
+    // return (
+    //     <SimpleGrid cols={{ base: 1, xs: 4 }}>
+            
+    //         <CardContenido height={BASE_HEIGHT} color="blue" texto="Principal" />
 
-        <Stack>
-          <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item A" />
-          <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item B" />
-          <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item C" />
-        </Stack>
+    //         <Stack>
+    //         <CardContenido height={BASE_HEIGHT / 2 - 8} color="teal" texto="Sub 1" />
+    //         <CardContenido height={BASE_HEIGHT / 2 - 8} color="teal" texto="Sub 2" />
+    //         </Stack>
 
-        <CardContenido height={BASE_HEIGHT} color="orange" texto="Final" />
-        
-      </SimpleGrid>
-  );
+    //         <Stack>
+    //         <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item A" />
+    //         <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item B" />
+    //         <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item C" />
+    //         </Stack>
+
+    //         <CardContenido height={BASE_HEIGHT} color="orange" texto="Final" />
+            
+    //     </SimpleGrid>
+    // );
+
+    return (
+        <SimpleGrid cols={{ base: 1, xs: 4 }} spacing="md">
+
+            {renderCard(DASHBOARD_DATA[0], 640)}
+
+            <Stack>
+                {renderCard(DASHBOARD_DATA[1], 312)}
+                {renderCard(DASHBOARD_DATA[2], 312)}
+            </Stack>
+
+            <Stack>
+                {renderCard(DASHBOARD_DATA[3], 312)}
+                {renderCard(DASHBOARD_DATA[4], 312)}
+            </Stack>
+
+            <Stack>
+                {renderCard(DASHBOARD_DATA[5], 312)}
+                {renderCard(DASHBOARD_DATA[6], 312)}
+            </Stack>
+
+            {/* {renderCard(DASHBOARD_DATA[7], 640)} */}
+        </SimpleGrid>
+    );
 }
 
-function CardContenido({ height, color, texto }: { height: number, color: string, texto: string }) {
-  return (
-    <Paper 
-      h={height}
-      shadow="xs" 
-      p="md" 
-      withBorder 
-      bg={`${color}.1`}
-    >
-      <Text fw={700} c={color}>{texto}</Text>
-    </Paper>
-  );
-}
+// function CardContenido({ height, color, texto }: { height: number, color: string, texto: string }) {
+//   return (
+//     <Paper 
+//       h={height}
+//       shadow="xs" 
+//       p="md" 
+//       withBorder 
+//       bg={`${color}.1`}
+//     >
+//       <Text fw={700} c={color}>{texto}</Text>
+//     </Paper>
+//   );
+// }
 
 //----------------------------------------------------------------------------------------------------//
 
