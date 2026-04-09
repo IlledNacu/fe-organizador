@@ -1,56 +1,59 @@
-import { SimpleGrid, Stack, Paper, Text, Grid, Skeleton, UnstyledButton } from '@mantine/core';
+import { SimpleGrid, Stack, Paper, Text, UnstyledButton } from '@mantine/core';
+import { IconAlarm, IconCalendar, IconNotebook, IconTarget, IconHeart } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { MusicPlayer } from './MusicPlayer';
 
 const DASHBOARD_DATA = [
-    { id: 1, titulo: 'Principal', tipo: 'grande', color: '#D6E9FA', link: '/play' },
-    { id: 2, titulo: 'Tareas', tipo: 'sub', color: '#D1BCE3', link: '/tasks' },
-    { id: 3, titulo: 'Agenda', tipo: 'sub', color: '#E36414', link: '/agenda' },
-    { id: 4, titulo: 'Cuidado', tipo: 'sub', color: '#D6E9FA', link: '/cuidado' },
-    { id: 5, titulo: 'Pomodoro', tipo: 'sub', color: '#D1BCE3', link: '/pomodoro' },
-    { id: 6, titulo: 'Economía', tipo: 'sub', color: '#E36414', link: '/economia' },
-    { id: 7, titulo: 'Notas', tipo: 'grande', color: '#E36414', link: '/notes' }
+    { id: 1, titulo: 'Reproductor', tipo: 'music', color: '#D6E9FA', link: '/play' },
+    { id: 2, titulo: 'Tareas', tipo: 'sub', color: '#D1BCE3', link: '/tasks', icon: 'IconTarget' },
+    { id: 3, titulo: 'Agenda', tipo: 'sub', color: '#E36414', link: '/agenda', icon: 'IconCalendar' },
+    { id: 4, titulo: 'Cuidado', tipo: 'sub', color: '#D6E9FA', link: '/cuidado', icon: 'IconHeart' },
+    { id: 5, titulo: 'Pomodoro', tipo: 'sub', color: '#D1BCE3', link: '/pomodoro', icon: 'IconAlarm' },
+    { id: 6, titulo: 'Economía', tipo: 'sub', color: '#E36414', link: '/economia', icon: 'IconTarget' },
+    { id: 7, titulo: 'Notas', tipo: 'grande', color: '#D6E9FA', link: '/notes', icon: 'IconNotebook' }
 ];
 
 export function Subgrid() {
     const navigate = useNavigate();
 
-    const renderCard = (item: any, height: number) => (
-        <UnstyledButton 
-        onClick={() => navigate(item.link)} 
-        style={{ width: '100%' }}
-        >
-        <Paper 
-            h={height} 
-            p="xl" 
-            radius="lg" 
-            style={{ backgroundColor: item.color, transition: 'transform 0.2s ease' }}
-        >
-            <Text fw={700} size="xl">{item.titulo}</Text>
-        </Paper>
-        </UnstyledButton>
-    );
-    
-    // const BASE_HEIGHT = 640;
-    // return (
-    //     <SimpleGrid cols={{ base: 1, xs: 4 }}>
-            
-    //         <CardContenido height={BASE_HEIGHT} color="blue" texto="Principal" />
+    const renderCard = (item: any, height: number) => {
+      if (item.tipo === 'music') {
+          return <MusicPlayer color={item.color} />;
+      }
 
-    //         <Stack>
-    //         <CardContenido height={BASE_HEIGHT / 2 - 8} color="teal" texto="Sub 1" />
-    //         <CardContenido height={BASE_HEIGHT / 2 - 8} color="teal" texto="Sub 2" />
-    //         </Stack>
+      const Icono = item.icon;
 
-    //         <Stack>
-    //         <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item A" />
-    //         <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item B" />
-    //         <CardContenido height={BASE_HEIGHT / 3 - 10} color="pink" texto="Item C" />
-    //         </Stack>
-
-    //         <CardContenido height={BASE_HEIGHT} color="orange" texto="Final" />
-            
-    //     </SimpleGrid>
-    // );
+      return (
+          <UnstyledButton onClick={() => navigate(item.link)} style={{ width: '100%' }}>
+              <Paper 
+                  h={height} 
+                  p="xl" 
+                  radius="lg" 
+                  pos="relative"
+                  style={{ 
+                      backgroundColor: item.color, 
+                      transition: 'all 0.3s ease',
+                      border: '1px solid rgba(0,0,0,0.05)'
+                  }}
+                  className="dashboard-card"
+              >
+                  <Stack justify="space-between" h="100%">
+                      <Text fw={700} size="xl" style={{ letterSpacing: '-0.5px' }}>
+                          {item.titulo}
+                      </Text>
+                      
+                      {Icono && (
+                          <Icono 
+                              size={48} 
+                              stroke={1.5} 
+                              style={{ alignSelf: 'flex-end', opacity: 0.7 }} 
+                          />
+                      )}
+                  </Stack>
+              </Paper>
+          </UnstyledButton>
+      );
+    };
 
     return (
         <SimpleGrid cols={{ base: 1, xs: 4 }} spacing="md">
@@ -75,58 +78,4 @@ export function Subgrid() {
             {/* {renderCard(DASHBOARD_DATA[7], 640)} */}
         </SimpleGrid>
     );
-}
-
-// function CardContenido({ height, color, texto }: { height: number, color: string, texto: string }) {
-//   return (
-//     <Paper 
-//       h={height}
-//       shadow="xs" 
-//       p="md" 
-//       withBorder 
-//       bg={`${color}.1`}
-//     >
-//       <Text fw={700} c={color}>{texto}</Text>
-//     </Paper>
-//   );
-// }
-
-//----------------------------------------------------------------------------------------------------//
-
-const PRIMARY_COL_HEIGHT = '300px';
-const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
-
-export function LeadGrid() {
-  return (
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-        <Skeleton height={PRIMARY_COL_HEIGHT} radius="md" animate={false} />
-        <Grid>
-          <Grid.Col>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-        </Grid>
-      </SimpleGrid>
-  );
-}
-
-const child = <Skeleton height={140} radius="md" animate={false} />;
-
-export function GridAsymmetrical() {
-  return (
-      <Grid>
-        <Grid.Col span={{ base: 12, xs: 4 }}>{child}</Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 8 }}>{child}</Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 8 }}>{child}</Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 4 }}>{child}</Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 3 }}>{child}</Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 3 }}>{child}</Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 6 }}>{child}</Grid.Col>
-      </Grid>
-  );
 }
