@@ -1,8 +1,10 @@
-import { Menu, Button, Text, rem, Affix, Badge, Group } from '@mantine/core';
+import { useState } from 'react';
 import { IconBell, IconCircleCheck, IconClock } from '@tabler/icons-react';
+import './reminders.css';
 
 export function Reminders() {
-  // Datos falsos para probar
+  const [isOpen, setIsOpen] = useState(false);
+
   const fakeReminders = [
     { id: 1, text: 'Tomar agua', time: '14:00' },
     { id: 2, text: 'Reunión de proyecto', time: '16:30' },
@@ -10,48 +12,40 @@ export function Reminders() {
   ];
 
   return (
-    <Affix position={{ top: 20, right: 20 }} zIndex={1000}>
-      <Menu shadow="md" width={250} radius="md" transitionProps={{ transition: 'pop-top-right' }}>
-        <Menu.Target>
-          <Button 
-            color="orange" 
-            radius="xl" 
-            size="md" 
-            leftSection={<IconBell size={20} />}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-          >
-            Recordatorios
-            <Badge color="red" variant="filled" size="sm" ml={8} circle>
-              {fakeReminders.length}
-            </Badge>
-          </Button>
-        </Menu.Target>
+    <div className="reminders-affix">
+      <div className="reminders-container">
+        {/* Botón que dispara el menú */}
+        <button 
+          className="reminders-button" 
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <IconBell size={20} />
+          <span>Recordatorios</span>
+          <div className="notification-badge">{fakeReminders.length}</div>
+        </button>
 
-        <Menu.Dropdown p="xs">
-          <Menu.Label>Próximos eventos</Menu.Label>
+        {/* Menú Desplegable */}
+        <div className={`reminders-dropdown ${isOpen ? 'show' : ''}`}>
+          <div className="dropdown-label">Próximos eventos</div>
           
           {fakeReminders.map((item) => (
-            <Menu.Item 
-              key={item.id} 
-              leftSection={<IconClock style={{ width: rem(14), height: rem(14) }} />}
-            >
-              <Group justify="space-between">
-                <Text size="sm">{item.text}</Text>
-                <Text size="xs" c="dimmed">{item.time}</Text>
-              </Group>
-            </Menu.Item>
+            <div key={item.id} className="reminder-item">
+              <IconClock size={14} color="#adb5bd" />
+              <div className="reminder-content">
+                <span>{item.text}</span>
+                <span style={{ color: '#adb5bd', fontSize: '12px' }}>{item.time}</span>
+              </div>
+            </div>
           ))}
 
-          <Menu.Divider />
+          <div className="divider" />
 
-          <Menu.Item 
-            color="teal" 
-            leftSection={<IconCircleCheck style={{ width: rem(14), height: rem(14) }} />}
-          >
-            Marcar todo como leído
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
-    </Affix>
+          <div className="reminder-item mark-read">
+            <IconCircleCheck size={16} />
+            <span>Marcar todo como leído</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

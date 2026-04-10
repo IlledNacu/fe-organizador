@@ -1,37 +1,39 @@
-import { useState } from 'react';
-import { IconGauge, IconFingerprint, IconActivity } from '@tabler/icons-react';
-import { Box, NavLink } from '@mantine/core';
-//import { storage } from '../localStorage';
+import { NavLink } from 'react-router-dom';
+import { IconGauge, IconAlarm, IconCalendar, IconNotebook, IconTarget, IconHeart, IconCash } from '@tabler/icons-react';
+
+import './topBar.css';
 
 const pages = [
-  { icon: IconGauge, label: 'Home', description: 'Item with description', path: '/', },
-  { icon: IconFingerprint, label: 'Perfil', path: '/profile', },
-  { icon: IconActivity, label: 'Notas', path: '/notes', },
+  { icon: IconGauge, label: 'Inicio', path: '/', },
+  { icon: IconTarget, label: 'Tareas', path: '/tasks', },
+  { icon: IconCalendar, label: 'Agenda', path: '/agenda', },
+  { icon: IconHeart, label: 'Cuidado', path: '/cuidado', },
+  { icon: IconAlarm, label: 'Pomodoro', path: '/pomodoro', },
+  { icon: IconCash, label: 'Economía', path: '/economia', },
+  { icon: IconNotebook, label: 'Notas', path: '/notes', }
 ];
 
 const TopBar: React.FC = () => {
-  const [active, setActive] = useState(0);
-
-  const items = pages.map((item, index) => (
-    <NavLink
-      href={item.path}
-      key={item.label}
-      active={index === active}
-      label={item.label}
-      description={item.description}
-      leftSection={<item.icon size="1rem" stroke={1.5} />}
-      onClick={() => setActive(index)}
-      color="pink"
-    />
-  ));
-
   return (
-  // storage.isUserLoggedIn()
-  // ?
-  // <Box w={220}>{items}</Box>
-  // : null
-  <Box w={220}>{items}</Box>
-  )
+    <nav className="topbar-container">
+      {pages.map((item) => (
+        <NavLink
+          to={item.path}
+          key={item.label}
+          className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+          style={{ textAlign: 'center', padding: '5px' }}
+        >
+          <span className="nav-icon">
+            <item.icon size="1.2rem" stroke={1.5} />
+          </span>
+          
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span>{item.label}</span>
+          </div>
+        </NavLink>
+      ))}
+    </nav>
+  );
 }
 
 export default TopBar;

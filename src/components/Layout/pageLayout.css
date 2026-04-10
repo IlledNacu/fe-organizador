@@ -1,0 +1,44 @@
+.app-container {
+    display: grid;
+    /* Filas: una de 60px (Header) y el resto que ocupe lo que sobre (1fr).
+       Columnas: una de 400px (Navbar) y el resto dinámico (1fr). */
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 400px 1fr;
+    grid-template-areas: 
+        "header header"
+        "navbar main";
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Evita scrolls raros en el contenedor principal */
+    background-color: #fdf3dd;
+}
+
+.header-wrapper {
+    grid-area: header;
+    z-index: 10;
+}
+
+.navbar-wrapper {
+    grid-area: navbar;
+    padding: 20px;
+    overflow-y: auto; /* Si el reproductor es alto, que haga scroll solo acá */
+}
+
+.main-wrapper {
+    grid-area: main;
+    padding: 24px;
+    overflow-y: auto; /* Scroll independiente para el contenido de las páginas */
+}
+
+/* Responsividad simple: en tablets/celulares, el navbar desaparece o se mueve */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "header"
+            "main";
+    }
+    .navbar-wrapper {
+        display: none;
+    }
+}

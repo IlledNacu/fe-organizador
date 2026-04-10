@@ -1,37 +1,29 @@
-import { AppShell } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
 import TopBar from './TopBar';
 import { MusicPlayer } from './MusicPlayer';
 import { Reminders } from './Reminders';
 import { InspirationCard } from './InspirationCard';
+import './pageLayout.css';
 
 export function PageLayout() {
   return (
-    <>
+    <div className="app-container">
         <Reminders />
         <InspirationCard />
         
-        <AppShell
-            header={{ height: 60 }} // Altura de TopBar
-            navbar={{
-                width: 400, // Ancho de tu reproductor de música
-                breakpoint: 'sm',
-                collapsed: { mobile: true }, // Se oculta en móvil por defecto
-            }}
-            padding="md">
-        <AppShell.Header>
+        <header className="header-wrapper">
             <TopBar />
-        </AppShell.Header>
+        </header>
 
-        <AppShell.Navbar p="md">
+        {/* Barra Lateral (Reproductor) */}
+        <nav className="navbar-wrapper">
             <MusicPlayer color={'#D6E9FA'} />
-        </AppShell.Navbar>
+        </nav>
 
-        <AppShell.Main>
-            {/* Aquí se renderizarán HomePage, NotesPage, etc. */}
+        {/* Contenido Principal */}
+        <main className="main-wrapper">
             <Outlet />
-        </AppShell.Main>
-        </AppShell>
-    </>
+        </main>
+    </div>
     );
 }

@@ -1,0 +1,59 @@
+.inspiration-affix {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Estado cuando está oculta */
+.inspiration-affix.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none; /* Para que no bloquee clics mientras es invisible */
+}
+
+.inspiration-paper {
+    width: 300px;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #fd7e14;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #adb5bd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: #f1f3f5;
+    color: #495057;
+}
+
+.quote-text {
+    font-size: 14px;
+    font-style: italic;
+    color: #868e96;
+    line-height: 1.5;
+    margin: 0;
+}

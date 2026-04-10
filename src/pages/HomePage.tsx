@@ -16,9 +16,9 @@ const HomePage: React.FC = () => {
 
     return(
         <>
-        <Container fluid p={0}>
+        {/* <Container fluid p={0}>
             <GenericSimpleGrid items={DASHBOARD_OPTIONS} height={440} />
-        </Container>
+        </Container> */}
         </>
     );
 };
