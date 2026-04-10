@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IconGauge, IconFingerprint, IconActivity } from '@tabler/icons-react';
 import { Box, NavLink } from '@mantine/core';
-import { storage } from '../localStorage';
+//import { storage } from '../localStorage';
 
 const pages = [
   { icon: IconGauge, label: 'Home', description: 'Item with description', path: '/', },
@@ -26,10 +26,11 @@ const TopBar: React.FC = () => {
   ));
 
   return (
-  storage.isUserLoggedIn()
-  ?
+  // storage.isUserLoggedIn()
+  // ?
+  // <Box w={220}>{items}</Box>
+  // : null
   <Box w={220}>{items}</Box>
-  : null
   )
 }
 
