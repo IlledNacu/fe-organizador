@@ -1,70 +1,59 @@
-import { Grid, SimpleGrid, Paper, Text, UnstyledButton, Stack } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { DashboardItem } from '../types/DashboardItem';
+import './grids.css';
 
-// --- COMPONENTE INTERNO PARA LA TARJETA (Para no repetir código) ---
+// --- TARJETA REUTILIZABLE ---
 const DashboardCard = ({ item, height }: { item: DashboardItem, height: number }) => {
     const navigate = useNavigate();
     const Icono = item.icon;
 
     return (
-        <UnstyledButton onClick={() => navigate(item.link)} style={{ width: '100%' }}>
-            <Paper 
-                h={{ base: 200, xs: 250, md: 300, lg: 350, xl: height }}
-                p="xl" 
-                radius="lg" 
-                style={{ backgroundColor: item.color, transition: 'transform 0.2s ease' }}
-                shadow="sm"
+        <button className="dashboard-btn" onClick={() => navigate(item.link)}>
+            <article 
+                className="dashboard-paper"
+                style={{ 
+                    backgroundColor: item.color,
+                    height: `${height}px` 
+                }}
             >
-                <Stack justify="center" align="center" h="100%">
-                    {Icono && (
-                        <Icono 
-                            size={100}
-                            stroke={1.5} 
-                            color="white" 
-                            style={{ opacity: 0.9 }} 
-                        />
-                    )}
-                    <Text 
-                        fw={700} 
-                        size="xl" 
-                        c="white" 
-                        ta="center"
-                        style={{ letterSpacing: '-0.5px', lineHeight: 1.2 }}
-                    >
-                        {item.titulo}
-                    </Text>
-                </Stack>
-            </Paper>
-        </UnstyledButton>
+                {Icono && (
+                    <Icono 
+                        size={100} 
+                        stroke={1.5} 
+                        color="white" 
+                        style={{ opacity: 0.9 }} 
+                    />
+                )}
+                <h3 className="dashboard-title">{item.titulo}</h3>
+            </article>
+        </button>
     );
 };
 
-// --- OPCIÓN A: GRILLA SIMÉTRICA (Columnas Iguales) ---
-export function GenericSimpleGrid({ items, height = 250 }: { items: DashboardItem[], height?: number }) {
+// --- OPCIÓN A: SIMÉTRICA ---
+export function GenericSimpleGrid({ items, height = 300 }: { items: DashboardItem[], height?: number }) {
     return (
-        <SimpleGrid 
-            cols={{ base: 1, xs: 2, md: 3 }} // 1 en movil, 2 en tablets, 3 en escritorio
-            spacing="lg" 
-            verticalSpacing="lg"
-            style={{ width: '100%' }} // Asegura que ocupe todo el ancho del área azul
-        >
+        <div className="simple-grid-container">
             {items.map((item) => (
                 <DashboardCard key={item.id} item={item} height={height} />
             ))}
-        </SimpleGrid>
+        </div>
     );
 }
 
-// --- OPCIÓN B: GRILLA ASIMÉTRICA (Usa el 'span' del JSON) ---
+// --- OPCIÓN B: ASIMÉTRICA ---
 export function GenericAsymmetricGrid({ items, height = 180 }: { items: DashboardItem[], height?: number }) {
     return (
-        <Grid gutter="md">
+        <div className="asymmetric-grid-container">
             {items.map((item) => (
-                <Grid.Col key={item.id} span={{ base: 12, sm: item.span || 4 }}>
+                <div 
+                    key={item.id} 
+                    className="grid-col" 
+                    style={{ '--col-span': item.span || 4 } as React.CSSProperties}
+                >
                     <DashboardCard item={item} height={height} />
-                </Grid.Col>
+                </div>
             ))}
-        </Grid>
+        </div>
     );
 }
