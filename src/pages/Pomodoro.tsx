@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Container, Title, Button, Group, Text, Stack, ActionIcon, NumberInput, Paper } from '@mantine/core';
-import { IconBlur, IconEyePause, IconTrash, IconPlayerPlay } from '@tabler/icons-react';
-import { BiAlarm } from "react-icons/bi";
+import { IconPlayerPause, IconTrash, IconPlayerPlay } from '@tabler/icons-react';
+import '../styles/pomodoro.css';
 
 export default function PomodoroPage() {
-  const [seconds, setSeconds] = useState(25 * 60); // 25 min por defecto
+  const [seconds, setSeconds] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
-  const [customValue, setCustomValue] = useState<number | string>(25);
+  const [customValue, setCustomValue] = useState(25);
 
   useEffect(() => {
     let interval: any = null;
@@ -22,7 +21,6 @@ export default function PomodoroPage() {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
-  // Formatear segundos a MM:SS
   const formatTime = (s: number) => {
     const mins = Math.floor(s / 60);
     const secs = s % 60;
@@ -34,66 +32,56 @@ export default function PomodoroPage() {
     setSeconds(m * 60);
   };
 
-  const resetTimer = () => {
-    setIsActive(false);
-    setSeconds(0);
-  };
-
   return (
-    <Container size="xs" py="xl">
-      <Stack align="center" spacing="xl">
-        <Title order={1} c="dimmed" style={{ fontFamily: 'serif' }}>Pomodoro</Title>
+    <div className="pomodoro-container">
+      <h1 className="pomodoro-title">Pomodoro</h1>
 
-        {/* Display del Reloj */}
-        <Paper shadow="md" p={50} radius="100%" withBorder bg="var(--mantine-color-blue-0)">
-            <BiAlarm />
-           <Text size="6rem" fw={900} variant="gradient" gradient={{ from: 'orange', to: 'red' }}>
-            {formatTime(seconds)}
-          </Text>
-        </Paper>
+      {/* Display del Reloj */}
+      <div className="timer-display">
+        <p className="timer-text">{formatTime(seconds)}</p>
+      </div>
 
-        {/* Tiempos Predeterminados */}
-        <Group>
-          <Button variant="light" color="orange" onClick={() => handleSetTime(25)}>Focus (25m)</Button>
-          <Button variant="light" color="teal" onClick={() => handleSetTime(5)}>Short (5m)</Button>
-          <Button variant="light" color="blue" onClick={() => handleSetTime(15)}>Long (15m)</Button>
-        </Group>
+      {/* Tiempos Predeterminados */}
+      <div className="controls-group">
+        <button className="btn-custom" style={{backgroundColor: '#fff4e6', color: '#fd7e14'}} onClick={() => handleSetTime(25)}>Focus (25m)</button>
+        <button className="btn-custom" style={{backgroundColor: '#e6fcf5', color: '#0ca678'}} onClick={() => handleSetTime(5)}>Short (5m)</button>
+        <button className="btn-custom" style={{backgroundColor: '#e7f5ff', color: '#228be6'}} onClick={() => handleSetTime(15)}>Long (15m)</button>
+      </div>
 
-        {/* Tiempo Personalizado */}
-        <Group align="flex-end">
-          <NumberInput 
-            label="Minutos personalizados" 
+      {/* Tiempo Personalizado */}
+      <div className="controls-group" style={{alignItems: 'flex-end'}}>
+        <div style={{display: 'flex', flexDirection: 'column', gap: '5px'}}>
+          <label style={{fontSize: '12px', color: '#868e96'}}>Minutos personalizados</label>
+          <input 
+            type="number" 
+            className="input-custom"
             value={customValue} 
-            onChange={setCustomValue} 
-            min={1} 
+            onChange={(e) => setCustomValue(Number(e.target.value))}
+            min="1"
           />
-          <Button onClick={() => handleSetTime(Number(customValue))}>Set</Button>
-        </Group>
+        </div>
+        <button className="btn-custom" style={{backgroundColor: '#339af0', color: 'white'}} onClick={() => handleSetTime(customValue)}>Set</button>
+      </div>
 
-        {/* Controles Principales */}
-        <Group spacing="lg">
-          <ActionIcon 
-            size="xl" 
-            radius="xl" 
-            variant="filled" 
-            color={isActive ? "yellow" : "green"}
-            onClick={() => setIsActive(!isActive)}
-          >
-            {isActive ? <IconEyePause /> : <IconPlayerPlay />}
-          </ActionIcon>
+      {/* Controles Principales */}
+      <div className="controls-group">
+        <button 
+          className="btn-custom" 
+          style={{backgroundColor: isActive ? '#fab005' : '#40c057', color: 'white', borderRadius: '50%', width: '60px', height: '60px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+          onClick={() => setIsActive(!isActive)}
+        >
+          {isActive ? <IconPlayerPause /> : <IconPlayerPlay />}
+        </button>
 
-          <ActionIcon 
-            size="xl" 
-            radius="xl" 
-            variant="outline" 
-            color="red" 
-            onClick={resetTimer}
-            title="Tirar a la basura"
-          >
-            <IconTrash />
-          </ActionIcon>
-        </Group>
-      </Stack>
-    </Container>
+        <button 
+          className="btn-custom" 
+          style={{backgroundColor: 'transparent', border: '2px solid #fa5252', color: '#fa5252', borderRadius: '50%', width: '60px', height: '60px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+          onClick={() => { setIsActive(false); setSeconds(0); }}
+          title="Tirar a la basura"
+        >
+          <IconTrash />
+        </button>
+      </div>
+    </div>
   );
 }

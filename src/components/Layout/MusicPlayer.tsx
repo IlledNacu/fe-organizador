@@ -1,22 +1,32 @@
-import { Paper, Stack, Text } from '@mantine/core';
 import ReactPlayer from 'react-player'; //https://www.npmjs.com/package/react-player
+import './musicPlayer.css';
 
-export const MusicPlayer = ({ color }: { color: string }) => (
-  <Paper p="md" radius="lg" h={'100%'} bg={color} pos="relative" style={{ overflow: 'hidden' }}>
-    <Text fw={700} size="xl" mb="md">¿Qué escuchamos?</Text>
-    
-    <div style={{ borderRadius: '12px', overflow: 'hidden', height: '450px' }}>
-      <ReactPlayer 
-        src="https://www.youtube.com/watch?v=jfKfPfyJRdk"
-        width="100%"
-        height="100%"
-        controls={true}
-      />
-    </div>
+interface MusicPlayerProps {
+  color: string;
+}
 
-    <Stack mt="md" spacing="xs">
-      <Text size="sm" italic>Recomendado para hoy:</Text>
-      <Text fw={500}>Lofi Hip Hop Radio 🐾</Text>
-    </Stack>
-  </Paper>
-);
+export const MusicPlayer = ({ color }: MusicPlayerProps) => {
+  return (
+    <section className="containerStyle" style={{ backgroundColor: color }}>
+      <h2 className="titleStyle">¿Qué escuchamos?</h2>
+      
+      <div className="playerWrapperStyle">
+        <ReactPlayer 
+          src="https://www.youtube.com/watch?v=jfKfPfyJRdk"
+          width="100%"
+          height="100%"
+          controls={true}
+        />
+      </div>
+
+      <div className="footerStyle">
+        <span style={{ fontSize: '0.9rem', fontStyle: 'italic', opacity: 0.8 }}>
+          Recomendado para hoy:
+        </span>
+        <strong style={{ fontWeight: 600 }}>
+          Lofi Hip Hop Radio 🐾
+        </strong>
+      </div>
+    </section>
+  );
+};

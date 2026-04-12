@@ -1,4 +1,3 @@
-import { Container } from "@mantine/core";
 import { IconAlarm, IconCalendar, IconNotebook, IconTarget, IconHeart, IconCash } from '@tabler/icons-react';
 import { GenericSimpleGrid } from "../components/Grids";
 
@@ -16,9 +15,7 @@ const HomePage: React.FC = () => {
 
     return(
         <>
-        <Container fluid p={0}>
-            <GenericSimpleGrid items={DASHBOARD_OPTIONS} height={440} />
-        </Container>
+        <GenericSimpleGrid items={DASHBOARD_OPTIONS} height={440} />
         </>
     );
 };
