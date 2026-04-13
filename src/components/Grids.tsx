@@ -3,7 +3,7 @@ import { DashboardItem } from '../types/DashboardItem';
 import './grids.css';
 
 // --- TARJETA REUTILIZABLE ---
-const DashboardCard = ({ item, height }: { item: DashboardItem, height: number }) => {
+const DashboardCard = ({ item }: { item: DashboardItem }) => {
     const navigate = useNavigate();
     const Icono = item.icon;
 
@@ -32,18 +32,18 @@ const DashboardCard = ({ item, height }: { item: DashboardItem, height: number }
 };
 
 // --- OPCIÓN A: SIMÉTRICA ---
-export function GenericSimpleGrid({ items, height = 300 }: { items: DashboardItem[], height?: number }) {
+export function GenericSimpleGrid({ items }: { items: DashboardItem[], height?: number }) {
     return (
         <div className="simple-grid-container">
             {items.map((item) => (
-                <DashboardCard key={item.id} item={item} height={height} />
+                <DashboardCard key={item.id} item={item} />
             ))}
         </div>
     );
 }
 
 // --- OPCIÓN B: ASIMÉTRICA ---
-export function GenericAsymmetricGrid({ items, height = 180 }: { items: DashboardItem[], height?: number }) {
+export function GenericAsymmetricGrid({ items }: { items: DashboardItem[], height?: number }) {
     return (
         <div className="asymmetric-grid-container">
             {items.map((item) => (
@@ -52,7 +52,7 @@ export function GenericAsymmetricGrid({ items, height = 180 }: { items: Dashboar
                     className="grid-col" 
                     style={{ '--col-span': item.span || 4 } as React.CSSProperties}
                 >
-                    <DashboardCard item={item} height={height} />
+                    <DashboardCard item={item} />
                 </div>
             ))}
         </div>

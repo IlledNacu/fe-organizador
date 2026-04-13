@@ -13,6 +13,13 @@
     background-color: var(--bg-color);
 }
 
+.app-container.no-header {
+    grid-template-rows: 0fr 1fr; /* Colapsamos la fila del header */
+    grid-template-areas: 
+        "navbar main"
+        "navbar main";
+}
+
 .header-wrapper {
     grid-area: header;
     z-index: 10;
