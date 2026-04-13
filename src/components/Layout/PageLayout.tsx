@@ -3,11 +3,13 @@ import TopBar from './TopBar';
 import { MusicPlayer } from './MusicPlayer';
 import { Reminders } from './Reminders';
 import { InspirationCard } from './InspirationCard';
-import './pageLayout.css';
+import { ThemeSelector } from './DarkMode';
+import '../../styles/layout/pageLayout.css';
 
 export function PageLayout() {
   return (
     <div className="app-container">
+        <ThemeSelector />
         <Reminders />
         <InspirationCard />
         
@@ -17,7 +19,7 @@ export function PageLayout() {
 
         {/* Barra Lateral (Reproductor) */}
         <nav className="navbar-wrapper">
-            <MusicPlayer color={'#D6E9FA'} />
+            <MusicPlayer color={'var(--accent-3)'} />
         </nav>
 
         {/* Contenido Principal */}

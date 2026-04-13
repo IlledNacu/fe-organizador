@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IconQuote, IconX } from '@tabler/icons-react';
-import './inspirationCard.css';
+import '../../styles/layout/inspirationCard.css';
 
 const FRASES = [
   "La disciplina es el puente entre las metas y los logros.",
@@ -27,7 +27,7 @@ export function InspirationCard() {
     <div className={`inspiration-affix ${!opened ? 'hidden' : ''}`}>
       <article className="inspiration-paper">
         <div className="card-header">
-          <IconQuote size={20} color="#fd7e14" />
+          <IconQuote size={20} color="var(--accent-2)" />
           <button 
             className="close-btn" 
             onClick={() => setOpened(false)}

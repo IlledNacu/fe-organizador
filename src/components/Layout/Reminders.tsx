@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IconBell, IconCircleCheck, IconClock } from '@tabler/icons-react';
-import './reminders.css';
+import '../../styles/layout/reminders.css';
 
 export function Reminders() {
   const [isOpen, setIsOpen] = useState(false);

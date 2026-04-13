@@ -1,0 +1,12 @@
+.modeButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    background-color: var(--accent-2);
+    color: var(--text-secondary);
+}

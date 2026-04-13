@@ -11,15 +11,35 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* MODO CLARO (Default) */
+  --bg-color: #FDF3DD;
+  --text-primary: #2C2C2C;
+  --text-secondary: #F0F0F0;
+  --accent-1: #A8DADC;
+  --accent-2: #FFC1CC;
+  --accent-3: #B39CD0;
+  
+  /* Tiempos de transición para que el cambio de modo sea suave */
+  --transition-speed: 0.3s;
+}
+
+[data-theme='dark'] { /* MODO OSCURO */
+  --bg-color: #1A1A1A;
+  --text-primary: #F0F0F0;
+  --text-secondary: #E4E4E4;
+  --accent-1: #004D61;
+  --accent-2: #822659;
+  --accent-3: #3E5641;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent-2);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--accent-3);
 }
 
 body {
@@ -28,6 +48,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh; */
+
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  margin: 0;
+  font-family: sans-serif;
 }
 
 h1 {
@@ -42,12 +68,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--text-secondary);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--accent-3);
 }
 button:focus,
 button:focus-visible {
@@ -56,13 +82,13 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--accent-1);
+    background-color: var(--bg-color);
   }
   a:hover {
-    color: #747bff;
+    color: var(--text-primary);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--accent-1);
   }
 }

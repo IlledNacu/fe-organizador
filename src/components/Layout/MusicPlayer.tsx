@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player'; //https://www.npmjs.com/package/react-player
-import './musicPlayer.css';
+import '../../styles/layout/musicPlayer.css';
 
 interface MusicPlayerProps {
   color: string;

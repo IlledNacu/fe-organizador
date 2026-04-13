@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { IconGauge, IconAlarm, IconCalendar, IconNotebook, IconTarget, IconHeart, IconCash } from '@tabler/icons-react';
-
-import './topBar.css';
+import '../../styles/layout/topBar.css';
 
 const pages = [
   { icon: IconGauge, label: 'Inicio', path: '/', },

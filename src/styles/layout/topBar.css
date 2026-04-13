@@ -14,20 +14,20 @@
     padding: 8px 16px;
     border-radius: 8px;
     text-decoration: none;
-    color: #495057;
+    color: var(--text-primary) !important;
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .nav-link:hover {
-    background-color: #D1BCE3;
-    color: #ffffff;
+    background-color: var(--accent-3);
+    color: var(--text-secondary) !important;
 }
 
 .nav-link.active {
-    background-color: #D1BCE3;
-    color: #ffffff;
+    background-color: var(--accent-1);
+    color: var(--text-secondary) !important;
     font-weight: 700;
 }
 

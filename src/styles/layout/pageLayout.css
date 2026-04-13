@@ -10,7 +10,7 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden; /* Evita scrolls raros en el contenedor principal */
-    background-color: #fdf3dd;
+    background-color: var(--bg-color);
 }
 
 .header-wrapper {
