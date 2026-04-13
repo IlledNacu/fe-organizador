@@ -13,12 +13,13 @@ const DashboardCard = ({ item, height }: { item: DashboardItem, height: number }
                 className="dashboard-paper"
                 style={{ 
                     backgroundColor: item.color,
-                    height: `${height}px` 
+                    height: 'auto',
+                    minHeight: '25vh' 
                 }}
             >
                 {Icono && (
                     <Icono 
-                        size={100} 
+                        size={80} 
                         stroke={1.5} 
                         color="white" 
                         style={{ opacity: 0.9 }} 

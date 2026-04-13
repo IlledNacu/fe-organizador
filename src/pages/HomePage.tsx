@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
 
     return(
         <>
-        <GenericSimpleGrid items={DASHBOARD_OPTIONS} height={440} />
+        <GenericSimpleGrid items={DASHBOARD_OPTIONS}/>
         </>
     );
 };

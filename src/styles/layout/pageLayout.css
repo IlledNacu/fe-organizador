@@ -22,12 +22,14 @@
     grid-area: navbar;
     padding: 20px;
     overflow-y: auto; /* Si el reproductor es alto, que haga scroll solo acá */
+    scrollbar-width: none;
 }
 
 .main-wrapper {
     grid-area: main;
     padding: 20px;
     overflow-y: auto; /* Scroll independiente para el contenido de las páginas */
+    scrollbar-width: none;
 }
 
 /* Responsividad simple: en tablets/celulares, el navbar desaparece o se mueve */
